@@ -13,7 +13,6 @@
 
   if (slides.length === 0) return; // Exit if no carousel found
 
-  // Function to show a specific slide
   function showSlide(index) {
     // Wrap around if out of bounds
     if (index >= slides.length) {
@@ -35,12 +34,10 @@
     });
   }
 
-  // Function to go to next slide
   function nextSlide() {
     showSlide(currentSlide + 1);
   }
 
-  // Function to go to previous slide
   function prevSlide() {
     showSlide(currentSlide - 1);
   }
@@ -61,6 +58,5 @@
     });
   });
 
-  // Initialize: show first slide
   showSlide(0);
 })();

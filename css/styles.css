@@ -27,7 +27,6 @@ a {
   text-decoration: none;
 }
 
-/* Simple design tokens for re-use */
 :root {
   --eco-green: #2d5f3f;
   --eco-green-soft: #6ba97b;
@@ -67,7 +66,6 @@ section {
   padding: 0.75rem 0;
 }
 
-/* Leaf logo icon in the navbar */
 .logo-icon {
   font-size: 1.7rem;
   color: var(--eco-green);
@@ -158,7 +156,7 @@ section {
 }
 
 /* ===== HERO CAROUSEL ===== */
-/* Carousel with navigation buttons */
+
 
 .hero-carousel {
   background: radial-gradient(circle at top left, #d8f1dd 0, #f7f7f5 55%);
@@ -525,7 +523,6 @@ section {
   color: var(--eco-muted);
 }
 
-/* Middle box (3rd) - largest */
 .member-box-center {
   transform: scale(1);
   z-index: 5;
