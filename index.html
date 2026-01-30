@@ -8,7 +8,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
-
+<style>
+    .blog-card {
+  margin:0px 20px;
+  flex: 1 1 calc(45% - 52.5px);
+  max-width: calc(55% - 22.5px);
+  min-width: 220px;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 320px;
+}
+</style>
 <body>
 
     <!-- ===== HEADER ===== -->
@@ -261,28 +276,31 @@
 
     <!-- ===== BLOG SECTION ===== -->
     <section class="blog-section" id="blog">
-        <div class="container">
-            <div class="section-header-centered">
-                <div class="line"></div>
-                <h2 class="section-title">From Our Blog</h2>
-                <div class="line"></div>
-            </div>
-            <div class="blog-grid">
-                <div class="blog-card">
-                    <div class="blog-img"></div>
-                    <h3>10 Ways to Reduce Plastic Waste</h3>
-                    <p>Discover simple and effective strategies to minimize plastic in your daily life...</p>
-                    <button class="btn-read">Read More</button>
+                <div class="container">
+                        <div class="section-header-centered">
+                                <div class="line"></div>
+                                <h2 class="section-title">From Our Blog</h2>
+                                <div class="line"></div>
+                        </div>
+
+                        <!-- Blog cards (mirrors html/Blog.html) -->
+                        <div class="blog-grid">
+                            <div class="blog-card">
+                                <img src="Assets/Images/blog/blog1.jpg" alt="">
+                                <h3>Technology & Sustainable Development</h3>
+                                <button onclick="openArticle(1)">Read More</button>
+                            </div>
+
+
+                            <div class="blog-card">
+                                <img src="Assets/Images/blog/blog4.jpg" alt="">
+                                <h3>Eco-Friendly Packaging and Waste Reduction</h3>
+                                <button onclick="openArticle(4)">Read More</button>
+                            </div>
+
+                        </div>
                 </div>
-                <div class="blog-card">
-                    <div class="blog-img"></div>
-                    <h3>The Benefits of Organic Living</h3>
-                    <p>Learn how switching to organic products can improve your health and environment...</p>
-                    <button class="btn-read">Read More</button>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
     <!-- ===== ABOUT US ===== -->
     <section class="about-section bg-light" id="about">
