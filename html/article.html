@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Article - EcoMart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/blog.css">
+    <style>
+        /* GLOBAL */
+        body {
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(to bottom, #f3f7f2, #e6efe9);
+            color: #2f4f3f;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 50px;
+            background: #ffffff;
+            border-bottom: 1px solid #dfe6df;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .logo-area img {
+            width: 32px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links li {
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .nav-links li.active {
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .nav-right input {
+            padding: 7px 10px;
+            border-radius: 20px;
+            border: 1px solid #cfd8d3;
+        }
+
+        .cart-btn {
+            margin-left: 10px;
+            padding: 7px 16px;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        /* PAGE TITLE */
+        .page-title {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 32px;
+            color: #1b5e20;
+        }
+
+        /* BLOG GRID */
+        .blog-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding-bottom: 60px;
+            flex-wrap: wrap;
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+
+        /* BLOG CARD */
+        .blog-card {
+            flex: 1 1 calc(25% - 30px);
+            background: #ffffff;
+            width: auto;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.35s ease;
+            transform: translateY(0);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+        }
+
+        .blog-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .blog-card h3 {
+            padding: 15px;
+            font-size: 18px;
+            color: #2e7d32;
+        }
+
+        .blog-card button {
+            margin: 0 15px 20px;
+            padding: 10px 18px;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 22px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+
+        .blog-card button:hover {
+            background: #1b5e20;
+        }
+
+        /* ARTICLE PAGE */
+        .article-page {
+            max-width: 900px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-page h1 {
+            font-size: 32px;
+            color: #1b5e20;
+        }
+
+        .author {
+            font-style: italic;
+            color: #5f7f6f;
+            margin-bottom: 20px;
+        }
+
+        .article-img {
+            width: 100%;
+            height: 360px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin: 25px 0;
+        }
+
+        .article-text h3 {
+            margin-top: 30px;
+            color: #2e7d32;
+        }
+
+        .article-text p {
+            line-height: 1.8;
+            font-size: 17px;
+            margin-top: 12px;
+        }
+
+        /* YOU MIGHT ALSO LIKE */
+        .like-section {
+            max-width: 900px;
+            margin: 50px auto;
+        }
+
+        .like-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .like-card img {
+            width: 140px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .like-card button {
+            padding: 8px 16px;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        /* BLOG BANNER */
+        .blog-banner {
+            background: linear-gradient(135deg, #2e7d32, #4caf50);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .banner-content h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .banner-content p {
+            font-size: 1.2em;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #dfeee4;
+            padding: 25px 40px;
+            font-size: 14px;
+            color: #355f4b;
+        }
+
+        .footer-cols {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 10px;
+        }
+
+        .footer h4 {
+            margin-bottom: 10px;
+            color: #1b5e20;
+        }
+
+        .footer p {
+            margin: 4px 0;
+        }
+
+        .footer p:last-child {
+            text-align: center;
+        }
+    </style>
+    <script src="../js/blog.js"></script>
+</head>
+
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="main-header" id="home">
+        <div class="container header-top">
+            <div class="logo">
+                <i class="fas fa-leaf logo-icon" aria-hidden="true"></i>
+            </div>
+
+            <nav class="main-nav">
+                <a href="../index.html">Home</a>
+                <a href="Products.html">Products</a>
+                <a href="Blog.html" class="active">Blog</a>
+                <a href="About.html">About</a>
+                <a href="research.html">Research</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="search-inline">
+                    <input type="text" placeholder="Search products..." aria-label="Search products">
+                </div>
+                <button class="cart-button" type="button">
+                    <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                    <span>Cart</span>
+                    <span class="cart-count" aria-label="Items in cart">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ARTICLE -->
+    <section class="article-page">
+        <h1 id="article-title"></h1>
+        <p class="author">By <span id="article-author"></span></p>
+
+        <img id="article-image" class="article-img">
+
+        <div id="article-content" class="article-text"></div>
+    </section>
+
+    <!-- YOU MIGHT ALSO LIKE -->
+    <section class="like-section">
+        <h3>You Might Also Like</h3>
+        <div class="like-card">
+            <img id="like-img">
+            <h3 id="like-title"></h3>
+            <button id="like-btn"> Read More</button>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="main-footer">
+
+        <!-- Footer Links -->
+        <div class="footer-content">
+            <div class="container footer-grid">
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <a href="Products.html">All Products</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">New Arrivals</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">Best Sellers</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">Sale</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Information</h4>
+                    <a href="About.html">About Us</a>
+                    <a href="About.html#contactSection">Contact</a>
+                    <a href="../index.html#faq">FAQ</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">Shipping</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Customer Service</h4>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">My Account</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">Order Tracking</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">Returns</a>
+                    <a href="About.html#contactSection">Support</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <p>📧 info@ecomart.com</p>
+                    <p>📱 +1 (555) 123-4567</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.x.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 EcoMart. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>

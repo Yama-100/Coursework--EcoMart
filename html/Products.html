@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - EcoMart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/products.css">
+    <style>
+        /* ===== PRODUCT GRID ===== */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-grid-featured {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-card-large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .product-card-large .product-image {
+            aspect-ratio: 16/9;
+        }
+
+        .product-card-large .product-title {
+            font-size: 1.2rem;
+        }
+
+        /* Product info container - fixed height for alignment */
+        .product-info {
+            padding: 0.85rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 120px;
+        }
+
+        /* Ensure all product cards have same structure */
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .product-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background-color: #f9fafb;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .price-original {
+            text-decoration: line-through;
+            color: var(--eco-muted);
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+        }
+
+        /* ===== SHOW MORE BUTTON ===== */
+
+        .show-more-container {
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0 2rem;
+        }
+
+        .btn-show-more {
+            padding: 0.65rem 2rem;
+            border-radius: 999px;
+            border: 1px solid var(--eco-border);
+            background-color: #f3f4f6;
+            color: var(--eco-green);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .btn-show-more:hover {
+            background-color: var(--eco-green);
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="main-header" id="products">
+        <div class="container header-top">
+            <div class="logo">
+                <i class="fas fa-leaf logo-icon" aria-hidden="true"></i>
+            </div>
+
+            <nav class="main-nav">
+                <a href="../index.html">Home</a>
+                <a href="Products.html" class="active">Products</a>
+                <a href="Blog.html">Blog</a>
+                <a href="About.html">About</a>
+                <a href="research.html">Research</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="search-inline">
+                    <input type="text" placeholder="Search products..." aria-label="Search products">
+                </div>
+                <button class="cart-button" type="button">
+                    <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                    <span>Cart</span>
+                    <span class="cart-count" aria-label="Items in cart">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== PRODUCT PAGE CONTENT ===== -->
+    <div class="products-layout">
+        <!-- Sidebar Filters -->
+        <aside class="products-sidebar">
+            <h3 class="sidebar-title">Filters</h3>
+
+            <div class="filter-group">
+                <label class="filter-label">Sort By</label>
+                <select class="filter-select">
+                    <option>Popular</option>
+                    <option>Price: Low to High</option>
+                    <option>Price: High to Low</option>
+                    <option>Newest Arrivals</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Category</label>
+                <select class="filter-select">
+                    <option>All Categories</option>
+                    <option>Home & Living</option>
+                    <option>Personal Care</option>
+                    <option>Kitchen</option>
+                    <option>Fashion</option>
+                    <option>Stationery</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <h4 class="filter-subtitle">Material</h4>
+                <div class="filter-checkboxes">
+                    <label class="checkbox-label">
+                        <input type="checkbox"> Bamboo
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox"> Recycled Plastic
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox"> Organic Cotton
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox"> Hemp
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Brand</label>
+                <select class="filter-select">
+                    <option>All Brands</option>
+                    <option>EcoLife</option>
+                    <option>GreenEarth</option>
+                    <option>Pure</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <h4 class="filter-subtitle">Price Range</h4>
+                <input type="range" min="0" max="500" value="100" class="price-range" id="priceRange">
+                <div class="price-display">
+                    <span>$0</span>
+                    <span id="priceValue">$100</span>
+                </div>
+            </div>
+
+            <button class="btn-filter-apply">Apply Filters</button>
+        </aside>
+
+        <!-- Main Products Content -->
+        <main class="products-main">
+
+            <!-- Category Quick Links -->
+            <div class="category-quick-links">
+                <div class="category-chip">
+                    <i class="fas fa-sun"></i>
+                    <span>Organic</span>
+                </div>
+                <div class="category-chip">
+                    <i class="fas fa-recycle"></i>
+                    <span>Recycled</span>
+                </div>
+                <div class="category-chip">
+                    <i class="fas fa-bolt"></i>
+                    <span>Energy</span>
+                </div>
+                <div class="category-chip">
+                    <i class="fas fa-heart"></i>
+                    <span>Beauty</span>
+                </div>
+                <div class="category-chip">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </div>
+                <div class="category-chip">
+                    <i class="fas fa-tshirt"></i>
+                    <span>Fashion</span>
+                </div>
+                <div class="category-chip">
+                    <i class="fas fa-gift"></i>
+                    <span>Gifts</span>
+                </div>
+            </div>
+
+            <!-- Best Deals Section -->
+            <div class="section-header-centered">
+                <div class="line"></div>
+                <h2 class="section-title">Best Deals in Eco-Mart</h2>
+                <div class="line"></div>
+            </div>
+
+            <div class="product-grid">
+                <!-- Product 1 -->
+                <article class="product-card"
+                    style="flex: 1 1 calc(25% - 1rem); background-color: #ffffff; border-radius: 12px; border: 1px solid #e0e44d; padding: 0.85rem; display: flex; flex-direction: column; gap: 0.65rem; transition: transform 0.2s ease;">
+                    <div class="product-image"
+                        style="display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: #f9fafb; border-radius: 0.75rem; position: relative; overflow: hidden; height: 200px;">
+                        <img src="../Assets/Product_Images/babies/babies (1).jpg" alt="Babies Toy Set">
+                        <button class="add-to-cart-btn" type="button" aria-label="Add to cart"
+                            style="position: absolute; top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.95); border: 1px solid #e0e4dd; color: #2d5f3f; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease;">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-tags">Entertainment</span>
+                        <h3 class="product-title"
+                            style="font-size: 0.95rem; font-weight: 600; color: #111827; margin-top: 0.5rem; text-align: center;">
+                            Babies Toy Set</h3>
+                        <div class="product-price" style="font-weight: 600; color: #111827;">$12.99</div>
+                    </div>
+                </article>
+
+                <!-- Product 2 -->
+                <article class="product-card">
+                    <div class="product-image"
+                        style="display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: #f9fafb; border-radius: 0.75rem; position: relative; overflow: hidden; height: 200px;">
+                        <img src="../Assets/Product_Images/babies/babies (4).PNG" alt="Wooden Legos">
+                        <button class="add-to-cart-btn" type="button" aria-label="Add to cart"
+                            style="position: absolute; top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.95); border: 1px solid #e0e4dd; color: #2d5f3f; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease;">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-tags">Entertainment</span>
+                        <h3 class="product-title"
+                            style="font-size: 0.95rem; font-weight: 600; color: #111827; margin-top: 0.5rem; text-align: center;">
+                            Wooden Legos</h3>
+                        <div class="product-price" style="font-weight: 600; color: #111827;">$5.99</div>
+                    </div>
+                </article>
+
+                <!-- Product 3 -->
+                <article class="product-card">
+                    <div class="product-image"
+                        style="display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: #f9fafb; border-radius: 0.75rem; position: relative; overflow: hidden; height: 200px;">
+                        <img src="../Assets/Product_Images/beauty and personal_care/beauty (6).PNG" alt="Organic Soap">
+                        <button class="add-to-cart-btn" type="button" aria-label="Add to cart"
+                            style="position: absolute; top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.95); border: 1px solid #e0e4dd; color: #2d5f3f; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease;">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-tags">Personal Care</span>
+                        <h3 class="product-title"
+                            style="font-size: 0.95rem; font-weight: 600; color: #111827; margin-top: 0.5rem; text-align: center;">
+                            Organic Soap</h3>
+                        <div class="product-price" style="font-weight: 600; color: #111827;">$3.99</div>
+                    </div>
+                </article>
+
+                <!-- Product 4 -->
+                <article class="product-card">
+                    <div class="product-image"
+                        style="display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: #f9fafb; border-radius: 0.75rem; position: relative; overflow: hidden; height: 200px;">
+                        <img src="../Assets/Product_Images/beauty and personal_care/beauty (4).png"
+                            alt="Chemical Free Hair Oil">
+                        <button class="add-to-cart-btn" type="button" aria-label="Add to cart"
+                            style="position: absolute; top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.95); border: 1px solid #e0e4dd; color: #2d5f3f; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease;">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-tags">Personal Care</span>
+                        <h3 class="product-title"
+                            style="font-size: 0.95rem; font-weight: 600; color: #111827; margin-top: 0.5rem; text-align: center;">
+                            Chemical Free Hair Oil</h3>
+                        <div class="product-price" style="font-weight: 600; color: #111827;">$3.99</div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="show-more-container">
+                <button class="btn-show-more">Show More</button>
+            </div>
+
+            <!-- Discounted Products Section -->
+            <div class="section-header-centered">
+                <div class="line"></div>
+                <h2 class="section-title">Discounted Products</h2>
+                <div class="line"></div>
+            </div>
+
+            <div class="product-grid-featured">
+                <!-- Large Product Card -->
+                <article class="product-card product-card-large">
+                    <div class="product-image"
+                        style="display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: #f9fafb; border-radius: 0.75rem; position: relative; overflow: hidden; height: 200px;">
+                        <img src="../Assets/Product_Images/kitchen/kitchen (10).PNG"
+                            alt="Recycled Paper Notebook Bundle">
+                        <button class="add-to-cart-btn" type="button" aria-label="Add to cart"
+                            style="position: absolute; top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.95); border: 1px solid #e0e4dd; color: #2d5f3f; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease;">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-tags">Stationery</span>
+                        <h3 class="product-title"
+                            style="font-size: 0.95rem; font-weight: 600; color: #111827; margin-top: 0.5rem; text-align: center;">
+                            Recycled Paper Notebook Bundle</h3>
+                        <div class="product-price" style="font-weight: 600; color: #111827;">
+                            <span class="price-original">$25.00</span> $18.00
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product 2 -->
+                <article class="product-card">
+                    <div class="product-image"
+                        style="display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: #f9fafb; border-radius: 0.75rem; position: relative; overflow: hidden; height: 200px;">
+                        <img src="../Assets/Product_Images/fashion and wearable/fashion (2).png" alt="Hemp Bag">
+                        <button class="add-to-cart-btn" type="button" aria-label="Add to cart"
+                            style="position: absolute; top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.95); border: 1px solid #e0e4dd; color: #2d5f3f; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease;">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-tags">Fashion</span>
+                        <h3 class="product-title"
+                            style="font-size: 0.95rem; font-weight: 600; color: #111827; margin-top: 0.5rem; text-align: center;">
+                            Hemp Bag</h3>
+                        <div class="product-price" style="font-weight: 600; color: #111827;">
+                            <span class="price-original">$10.99</span> $3.99
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product 3 -->
+                <article class="product-card">
+                    <div class="product-image"
+                        style="display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: #f9fafb; border-radius: 0.75rem; position: relative; overflow: hidden; height: 200px;">
+                        <img src="../Assets/Product_Images/furniture/furniture (1).png" alt="Wooden Bin">
+                        <button class="add-to-cart-btn" type="button" aria-label="Add to cart"
+                            style="position: absolute; top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.95); border: 1px solid #e0e4dd; color: #2d5f3f; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease;">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-tags">Home</span>
+                        <h3 class="product-title"
+                            style="font-size: 0.95rem; font-weight: 600; color: #111827; margin-top: 0.5rem; text-align: center;">
+                            Wooden Bin</h3>
+                        <div class="product-price" style="font-weight: 600; color: #111827;">
+                            <span class="price-original">$12.99</span> $4.99
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="show-more-container">
+                <button class="btn-show-more">Show More</button>
+            </div>
+
+            <!-- For You Section -->
+            <div class="section-header-centered">
+                <div class="line"></div>
+                <h2 class="section-title">For You</h2>
+                <div class="line"></div>
+            </div>
+
+            <div class="product-grid">
+                <!-- Product 1 -->
+                <article class="product-card">
+                    <div class="product-image"
+                        style="display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: #f9fafb; border-radius: 0.75rem; position: relative; overflow: hidden; height: 200px;">
+                        <img src="../Assets/Product_Images/furniture/furniture (2).PNG" alt="Wooden Bin">
+                        <button class="add-to-cart-btn" type="button" aria-label="Add to cart"
+                            style="position: absolute; top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.95); border: 1px solid #e0e4dd; color: #2d5f3f; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease;">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-tags">Home</span>
+                        <h3 class="product-title"
+                            style="font-size: 0.95rem; font-weight: 600; color: #111827; margin-top: 0.5rem; text-align: center;">
+                            Wooden Bin</h3>
+                        <div class="product-price" style="font-weight: 600; color: #111827;">$13.99</div>
+                    </div>
+                </article>
+
+                <!-- Product 2 -->
+                <article class="product-card">
+                    <div class="product-image"
+                        style="display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: #f9fafb; border-radius: 0.75rem; position: relative; overflow: hidden; height: 200px;">
+                        <img src="../Assets/Product_Images/gardening/gardening (1).png" alt="Organic Compost">
+                        <button class="add-to-cart-btn" type="button" aria-label="Add to cart"
+                            style="position: absolute; top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.95); border: 1px solid #e0e4dd; color: #2d5f3f; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease;">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-tags">Wellness</span>
+                        <h3 class="product-title"
+                            style="font-size: 0.95rem; font-weight: 600; color: #111827; margin-top: 0.5rem; text-align: center;">
+                            Organic Compost</h3>
+                        <div class="product-price" style="font-weight: 600; color: #111827;">$22.99</div>
+                    </div>
+                </article>
+
+                <!-- Product 3 -->
+                <article class="product-card">
+                    <div class="product-image"
+                        style="display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: #f9fafb; border-radius: 0.75rem; position: relative; overflow: hidden; height: 200px;">
+                        <img src="../Assets/Product_Images/gardening/gardening (2).png" alt="Organic Compost">
+                        <button class="add-to-cart-btn" type="button" aria-label="Add to cart"
+                            style="position: absolute; top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.95); border: 1px solid #e0e4dd; color: #2d5f3f; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease;">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-tags">Wellness</span>
+                        <h3 class="product-title"
+                            style="font-size: 0.95rem; font-weight: 600; color: #111827; margin-top: 0.5rem; text-align: center;">
+                            Organic Compost</h3>
+                        <div class="product-price" style="font-weight: 600; color: #111827;">$45.99</div>
+                    </div>
+                </article>
+
+                <!-- Product 4 -->
+                <article class="product-card">
+                    <div class="product-image"
+                        style="display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: #f9fafb; border-radius: 0.75rem; position: relative; overflow: hidden; height: 200px;">
+                        <img src="../Assets/Product_Images/home decor/decor (1).png" alt="Agarbatti">
+                        <button class="add-to-cart-btn" type="button" aria-label="Add to cart"
+                            style="position: absolute; top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.95); border: 1px solid #e0e4dd; color: #2d5f3f; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease;">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-tags">Home</span>
+                        <h3 class="product-title"
+                            style="font-size: 0.95rem; font-weight: 600; color: #111827; margin-top: 0.5rem; text-align: center;">
+                            Agarbatti</h3>
+                        <div class="product-price" style="font-weight: 600; color: #111827;">$4.99</div>
+                    </div>
+                </article>
+
+                <!-- Product 5 -->
+                <article class="product-card">
+                    <div class="product-image"
+                        style="display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: #f9fafb; border-radius: 0.75rem; position: relative; overflow: hidden; height: 200px;">
+                        <img src="../Assets/Product_Images/kitchen/kitchen (9).PNG" alt="Wooden Cup">
+                        <button class="add-to-cart-btn" type="button" aria-label="Add to cart"
+                            style="position: absolute; top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.95); border: 1px solid #e0e4dd; color: #2d5f3f; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease;">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-tags">Kitchen</span>
+                        <h3 class="product-title"
+                            style="font-size: 0.95rem; font-weight: 600; color: #111827; margin-top: 0.5rem; text-align: center;">
+                            Wooden Cup</h3>
+                        <div class="product-price" style="font-weight: 600; color: #111827;">$2.99</div>
+                    </div>
+                </article>
+
+                <!-- Product 6 -->
+                <article class="product-card">
+                    <div class="product-image"
+                        style="display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: #f9fafb; border-radius: 0.75rem; position: relative; overflow: hidden; height: 200px;">
+                        <img src="../Assets/Product_Images/kitchen/kitchen (1).PNG" alt="Wooden Bowl">
+                        <button class="add-to-cart-btn" type="button" aria-label="Add to cart"
+                            style="position: absolute; top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.95); border: 1px solid #e0e4dd; color: #2d5f3f; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease;">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-tags">Kitchen</span>
+                        <h3 class="product-title"
+                            style="font-size: 0.95rem; font-weight: 600; color: #111827; margin-top: 0.5rem; text-align: center;">
+                            Wooden Bowl</h3>
+                        <div class="product-price" style="font-weight: 600; color: #111827;">$3.99</div>
+                    </div>
+                </article>
+
+                <!-- Product 7 -->
+                <article class="product-card">
+                    <div class="product-image"
+                        style="display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: #f9fafb; border-radius: 0.75rem; position: relative; overflow: hidden; height: 200px;">
+                        <img src="../Assets/Product_Images/kitchen/kitchen (2).png" alt="Wooden Spoon and Fork Set">
+                        <button class="add-to-cart-btn" type="button" aria-label="Add to cart"
+                            style="position: absolute; top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.95); border: 1px solid #e0e4dd; color: #2d5f3f; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease;">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-tags">Kitchen</span>
+                        <h3 class="product-title"
+                            style="font-size: 0.95rem; font-weight: 600; color: #111827; margin-top: 0.5rem; text-align: center;">
+                            Wooden Spoon and Fork Set</h3>
+                        <div class="product-price" style="font-weight: 600; color: #111827;">$5.99</div>
+                    </div>
+                </article>
+
+                <!-- Product 8 -->
+                <article class="product-card">
+                    <div class="product-image"
+                        style="display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: #f9fafb; border-radius: 0.75rem; position: relative; overflow: hidden; height: 200px;">
+                        <img src="../Assets/Product_Images/stationary/stationary(0).png" alt="Notebook">
+                        <button class="add-to-cart-btn" type="button" aria-label="Add to cart"
+                            style="position: absolute; top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.95); border: 1px solid #e0e4dd; color: #2d5f3f; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease;">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-tags">Stationary</span>
+                        <h3 class="product-title"
+                            style="font-size: 0.95rem; font-weight: 600; color: #111827; margin-top: 0.5rem; text-align: center;">
+                            Notebook</h3>
+                        <div class="product-price" style="font-weight: 600; color: #111827;">$2.99</div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="show-more-container">
+                <button class="btn-show-more">Show More</button>
+            </div>
+
+            <!-- Trending Section -->
+            <div class="section-header-centered">
+                <div class="line"></div>
+                <h2 class="section-title">Trending</h2>
+                <div class="line"></div>
+            </div>
+
+            <div class="product-grid">
+                <!-- Product 1 -->
+                <article class="product-card">
+                    <div class="product-image"
+                        style="display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: #f9fafb; border-radius: 0.75rem; position: relative; overflow: hidden; height: 200px;">
+                        <img src="../Assets/Product_Images/stationary/stationary(1).png" alt="Pocket Notebook">
+                        <button class="add-to-cart-btn" type="button" aria-label="Add to cart"
+                            style="position: absolute; top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.95); border: 1px solid #e0e4dd; color: #2d5f3f; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease;">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-tags">Stationary</span>
+                        <h3 class="product-title"
+                            style="font-size: 0.95rem; font-weight: 600; color: #111827; margin-top: 0.5rem; text-align: center;">
+                            Pocket Notebook</h3>
+                        <div class="product-price" style="font-weight: 600; color: #111827;">$2.99</div>
+                    </div>
+                </article>
+
+                <!-- Product 2 -->
+                <article class="product-card">
+                    <div class="product-image"
+                        style="display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: #f9fafb; border-radius: 0.75rem; position: relative; overflow: hidden; height: 200px;">
+                        <img src="../Assets/Product_Images/unknown/other (1).PNG" alt="Wooden Water Bottle">
+                        <button class="add-to-cart-btn" type="button" aria-label="Add to cart"
+                            style="position: absolute; top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.95); border: 1px solid #e0e4dd; color: #2d5f3f; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease;">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-tags">Wellness</span>
+                        <h3 class="product-title"
+                            style="font-size: 0.95rem; font-weight: 600; color: #111827; margin-top: 0.5rem; text-align: center;">
+                            Wooden Water Bottle</h3>
+                        <div class="product-price" style="font-weight: 600; color: #111827;">$12.99</div>
+                    </div>
+                </article>
+
+                <!-- Product 3 -->
+                <article class="product-card">
+                    <div class="product-image"
+                        style="display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: #f9fafb; border-radius: 0.75rem; position: relative; overflow: hidden; height: 200px;">
+                        <img src="../Assets/Product_Images/unknown/other (2).png" alt="Wooden Basket">
+                        <button class="add-to-cart-btn" type="button" aria-label="Add to cart"
+                            style="position: absolute; top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.95); border: 1px solid #e0e4dd; color: #2d5f3f; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease;">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-tags">Accessories</span>
+                        <h3 class="product-title"
+                            style="font-size: 0.95rem; font-weight: 600; color: #111827; margin-top: 0.5rem; text-align: center;">
+                            Wooden Basket</h3>
+                        <div class="product-price" style="font-weight: 600; color: #111827;">$12.99</div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="show-more-container">
+                <button class="btn-show-more">Show More</button>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="main-footer">
+
+        <!-- Footer Links -->
+        <div class="footer-content">
+            <div class="container footer-grid">
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">All Products</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">New Arrivals</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">Best Sellers</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">Sale</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Information</h4>
+                    <a href="About.html">About Us</a>
+                    <a href="About.html#contactSection">Contact</a>
+                    <a href="../index.html#faq">FAQ</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">Shipping</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Customer Service</h4>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">My Account</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">Order Tracking</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">Returns</a>
+                    <a href="About.html#contactSection">Support</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <p>📧 info@ecomart.com</p>
+                    <p>📱 +1 (555) 123-4567</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.x.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 EcoMart. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script src="../js/products.js"></script>
+
+</body>
+
+</html>

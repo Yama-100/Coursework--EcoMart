@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - EcoMart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/about.css">
+    <style>
+        /* ===== HIDE RADIO BUTTONS ===== */
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        /* ===== TEAM IMAGES ROW ===== */
+
+        .team-images-row {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .team-image-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .team-image-label:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid var(--eco-border);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            object-fit: cover;
+        }
+
+        .team-name {
+            margin-top: 0.75rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        /* Active team member styling */
+        #p1:checked~.team-images-row label[for="p1"] .team-image,
+        #p2:checked~.team-images-row label[for="p2"] .team-image,
+        #p3:checked~.team-images-row label[for="p3"] .team-image,
+        #p4:checked~.team-images-row label[for="p4"] .team-image,
+        #p5:checked~.team-images-row label[for="p5"] .team-image {
+            border-color: var(--eco-green);
+            box-shadow: 0 0 0 4px rgba(45, 95, 63, 0.1);
+        }
+
+        #p1:checked~.team-images-row label[for="p1"] .team-name,
+        #p2:checked~.team-images-row label[for="p2"] .team-name,
+        #p3:checked~.team-images-row label[for="p3"] .team-name,
+        #p4:checked~.team-images-row label[for="p4"] .team-name,
+        #p5:checked~.team-images-row label[for="p5"] .team-name {
+            color: var(--eco-green);
+        }
+
+        /* ===== DETAILS AND CERTIFICATES SECTION ===== */
+
+        .details-certificates-section {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        /* ===== TEAM DETAILS WRAPPER ===== */
+
+        .team-details-wrapper {
+            flex: 2;
+            background-color: var(--eco-surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--eco-border);
+            padding: 1.5rem;
+            min-height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-details {
+            position: absolute;
+            top: 1.5rem;
+            left: 100%;
+            width: calc(100% - 3rem);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .team-details h3 {
+            font-size: 1.5rem;
+            color: var(--eco-green);
+            margin-bottom: 1rem;
+        }
+
+        /* Show active team member details */
+        #p1:checked~.details-certificates-section .team-details-wrapper .d1,
+        #p2:checked~.details-certificates-section .team-details-wrapper .d2,
+        #p3:checked~.details-certificates-section .team-details-wrapper .d3,
+        #p4:checked~.details-certificates-section .team-details-wrapper .d4,
+        #p5:checked~.details-certificates-section .team-details-wrapper .d5 {
+            left: 0;
+            opacity: 1;
+        }
+
+        /* ===== DETAILS TABLE ===== */
+
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .details-table th,
+        .details-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid var(--eco-border);
+        }
+
+        .details-table th {
+            background-color: var(--eco-bg);
+            color: #374151;
+            font-weight: 600;
+            width: 40%;
+        }
+
+        .details-table td {
+            color: #111827;
+        }
+
+
+
+        /* ===== CERTIFICATES BOX ===== */
+
+        .certificates-box {
+            flex: 1;
+            background-color: var(--eco-surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--eco-border);
+            padding: 1.5rem;
+            max-height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-details {
+            position: absolute;
+            top: 1.5rem;
+            left: 100%;
+            width: calc(100% - 3rem);
+            opacity: 0;
+            transition: all 0.4s ease;
+            max-height: calc(100% - 3rem);
+            overflow-y: auto;
+        }
+
+        /* Show active team member certificates */
+        #p1:checked~.details-certificates-section .certificates-box .c1,
+        #p2:checked~.details-certificates-section .certificates-box .c2,
+        #p3:checked~.details-certificates-section .certificates-box .c3,
+        #p4:checked~.details-certificates-section .certificates-box .c4,
+        #p5:checked~.details-certificates-section .certificates-box .c5 {
+            left: 1.5rem;
+            opacity: 1;
+        }
+
+        .certificates-box h3 {
+            font-size: 1.25rem;
+            color: var(--eco-green);
+            margin-bottom: 1rem;
+            position: sticky;
+            top: 0;
+            background-color: var(--eco-surface);
+            z-index: 10;
+        }
+
+        .cert-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem;
+            background-color: var(--eco-bg);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .cert-item:hover {
+            background-color: var(--eco-border);
+        }
+
+        .cert-item i {
+            color: var(--eco-green);
+            font-size: 1.25rem;
+        }
+
+        .cert-item span {
+            font-size: 0.9rem;
+            color: #374151;
+        }
+
+
+        /* ===== CONTACT FORM SECTION ===== */
+
+        .contact-form-section {
+            background-color: var(--eco-surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--eco-border);
+            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            color: var(--eco-green);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.85rem;
+            border: 1px solid var(--eco-border);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: system-ui, -apple-system, sans-serif;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--eco-green);
+            box-shadow: 0 0 0 3px rgba(45, 95, 63, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            padding: 0.85rem 2rem;
+            background-color: var(--eco-green);
+            color: #ffffff;
+            border: none;
+            border-radius: 999px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            align-self: center;
+        }
+
+        .btn-submit:hover {
+            background-color: #234832;
+        }
+
+        .error-message {
+            display: block;
+            color: #d32f2f;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            min-height: 1.2rem;
+        }
+
+        .form-group input.error,
+        .form-group textarea.error {
+            border: 2px solid #d32f2f;
+            background-color: #ffebee;
+        }
+
+        .success-message {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+    </style>
+
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="main-header" id="home">
+        <div class="container header-top">
+            <div class="logo">
+                <i class="fas fa-leaf logo-icon" aria-hidden="true"></i>
+            </div>
+
+            <nav class="main-nav">
+                <a href="../index.html">Home</a>
+                <a href="Products.html">Products</a>
+                <a href="Blog.html">Blog</a>
+                <a href="About.html" class="active">About</a>
+                <a href="research.html">Research</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="search-inline">
+                    <input type="text" placeholder="Search products..." aria-label="Search products">
+                </div>
+                <button class="cart-button" type="button">
+                    <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                    <span>Cart</span>
+                    <span class="cart-count" aria-label="Items in cart">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== ABOUT US CONTENT ===== -->
+    <div class="about-container">
+
+        <!-- About Header -->
+        <div class="about-header">
+            <div class="section-header-centered">
+                <div class="line"></div>
+                <h1 class="section-title">About Us</h1>
+                <div class="line"></div>
+            </div>
+            <p class="about-subtitle">Meet our team members</p>
+        </div>
+
+        <!-- Team Member Selection (Radio Buttons) -->
+        <input type="radio" name="person" id="p1" checked>
+        <input type="radio" name="person" id="p2">
+        <input type="radio" name="person" id="p3">
+        <input type="radio" name="person" id="p4">
+        <input type="radio" name="person" id="p5">
+
+        <!-- Team Member Images -->
+        <div class="team-images-row">
+            <label for="p1" class="team-image-label">
+                <img src="https://placehold.co/150x150/a8d5ba/2d5f3f?text=DB" alt="Deep Baniya" class="team-image">
+                <span class="team-name">Deep Baniya</span>
+            </label>
+            <label for="p2" class="team-image-label">
+                <img src="https://placehold.co/150x150/a8d5ba/2d5f3f?text=MS" alt="Manik Shah Thakuri"
+                    class="team-image">
+                <span class="team-name">Manik Shah Thakuri</span>
+            </label>
+            <label for="p3" class="team-image-label">
+                <img src="https://placehold.co/150x150/a8d5ba/2d5f3f?text=AS" alt="Alson Shrestha" class="team-image">
+                <span class="team-name">Alson Shrestha</span>
+            </label>
+            <label for="p4" class="team-image-label">
+                <img src="https://placehold.co/150x150/a8d5ba/2d5f3f?text=PT" alt="Palistha Tamarkar"
+                    class="team-image">
+                <span class="team-name">Palistha Tamarkar</span>
+            </label>
+            <label for="p5" class="team-image-label">
+                <img src="https://placehold.co/150x150/a8d5ba/2d5f3f?text=SK" alt="Shreyashi Karki" class="team-image">
+                <span class="team-name">Shreyashi Karki</span>
+            </label>
+        </div>
+
+        <!-- Details and Certificates Section -->
+        <div class="details-certificates-section">
+
+            <!-- Team Member Details -->
+            <div class="team-details-wrapper">
+                <div class="team-details d1">
+                    <h3 style="margin-left: 40px;">Deep Baniya</h3>
+                    <table class="details-table">
+                        <tr>
+                            <th>Role</th>
+                            <td>Resercher</td>
+                        </tr>
+                        <tr>
+                            <th>Responsibility</th>
+                            <td>Research and product vetting</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+                <div class="team-details d2">
+                    <h3 style="margin-left: 40px;">Manik Shah Thakuri</h3>
+                    <table class="details-table">
+                        <tr>
+                            <th>Role</th>
+                            <td>Product Manager</td>
+                        </tr>
+                        <tr>
+                            <th>Responsibility</th>
+                            <td>Product strategy and listings</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="team-details d3">
+                    <h3 style="margin-left: 40px;">Alson Shrestha</h3>
+                    <table class="details-table">
+                        <tr>
+                            <th>Role</th>
+                            <td>Leader</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="team-details d4">
+                    <h3 style="margin-left: 40px;">Palistha Tamrakar</h3>
+                    <table class="details-table">
+                        <tr>
+                            <th>Role</th>
+                            <td>Team Manager</td>
+                        </tr>
+                        <tr>
+                            <th>Responsibility</th>
+                            <td>Team coordination and tasks</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="team-details d5">
+                    <h3 style="margin-left: 40px;">Shreyashi Karki</h3>
+                    <table class="details-table">
+                        <tr>
+                            <th>Role</th>
+                            <td>Blogger</td>
+                        </tr>
+                        <tr>
+                            <th>Responsibility</th>
+                            <td>Content and blog posts</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Certificates Box -->
+            <div class="certificates-box">
+                <h3>Certifications</h3>
+                <div class="cert-item">
+                    <i class="fas fa-certificate"></i>
+                    <span>Eco-Friendly Business Certification</span>
+                </div>
+                <div class="cert-item">
+                    <i class="fas fa-award"></i>
+                    <span>Sustainability Award 2025</span>
+                </div>
+                <div class="cert-item">
+                    <i class="fas fa-medal"></i>
+                    <span>Green Product Excellence</span>
+                </div>
+            </div>
+
+        </div>
+
+
+        <section id="contactSection">
+            <!-- Contact Form -->
+            <div class="contact-form-section">
+                <h3 class="form-title">Contact Our Team</h3>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" id="name" placeholder="Your Name" required>
+                        <span class="error-message" id="nameError"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="Your Email" required>
+                        <span class="error-message" id="emailError"></span>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
+                        <span class="error-message" id="messageError"></span>
+                    </div>
+                    <button type="submit" class="btn-submit">Send Message</button>
+                </form>
+            </div>
+        </section>
+
+    </div>
+
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="main-footer">
+
+        <!-- Footer Links -->
+        <div class="footer-content">
+            <div class="container footer-grid">
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <a href="Products.html">All Products</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">New Arrivals</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">Best Sellers</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">Sale</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Information</h4>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">About Us</a>
+                    <a href="#contactSection">Contact</a>
+                    <a href="../index.html#faq">FAQ</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">Shipping</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Customer Service</h4>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">My Account</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">Order Tracking</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">Returns</a>
+                    <a href="#contactSection">Support</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <p>📧 info@ecomart.com</p>
+                    <p>📱 +1 (555) 123-4567</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.x.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 EcoMart. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Form Validation
+        const contactForm = document.getElementById('contactForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+
+        const nameError = document.getElementById('nameError');
+        const emailError = document.getElementById('emailError');
+        const messageError = document.getElementById('messageError');
+
+        // Email validation regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        // Clear error when user starts typing
+        nameInput.addEventListener('input', () => {
+            nameError.textContent = '';
+            nameInput.classList.remove('error');
+        });
+
+        emailInput.addEventListener('input', () => {
+            emailError.textContent = '';
+            emailInput.classList.remove('error');
+        });
+
+        messageInput.addEventListener('input', () => {
+            messageError.textContent = '';
+            messageInput.classList.remove('error');
+        });
+
+        // Form submission handler
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            let isValid = true;
+
+            // Validate name
+            if (nameInput.value.trim() === '') {
+                nameError.textContent = 'Name is required';
+                nameInput.classList.add('error');
+                isValid = false;
+            }
+
+            // Validate email
+            if (emailInput.value.trim() === '') {
+                emailError.textContent = 'Email is required';
+                emailInput.classList.add('error');
+                isValid = false;
+            } else if (!emailRegex.test(emailInput.value.trim())) {
+                emailError.textContent = 'Please enter a valid email address';
+                emailInput.classList.add('error');
+                isValid = false;
+            }
+
+            // Validate message
+            if (messageInput.value.trim() === '') {
+                messageError.textContent = 'Message is required';
+                messageInput.classList.add('error');
+                isValid = false;
+            } else if (messageInput.value.trim().length < 10) {
+                messageError.textContent = 'Message must be at least 10 characters';
+                messageInput.classList.add('error');
+                isValid = false;
+            }
+
+            // If all valid, submit
+            if (isValid) {
+                alert('Thank you for your message! We will get back to you soon.');
+                contactForm.reset();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

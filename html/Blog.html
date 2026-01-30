@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - EcoMart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/blog.css">
+    <style>
+        /* ARTICLE PAGE */
+        .article-page {
+            max-width: 900px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-page h1 {
+            font-size: 32px;
+            color: #1b5e20;
+        }
+
+        .author {
+            font-style: italic;
+            color: #5f7f6f;
+            margin-bottom: 20px;
+        }
+
+        .article-img {
+            width: 100%;
+            height: 360px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin: 25px 0;
+        }
+
+        .article-text h3 {
+            margin-top: 30px;
+            color: #2e7d32;
+        }
+
+        .article-text p {
+            line-height: 1.8;
+            font-size: 17px;
+            margin-top: 12px;
+        }
+
+        /* YOU MIGHT ALSO LIKE */
+        .like-section {
+            max-width: 900px;
+            margin: 50px auto;
+        }
+
+        .like-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .like-card img {
+            width: 140px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .like-card button {
+            padding: 8px 16px;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        /* BLOG BANNER */
+        .blog-banner {
+            background: linear-gradient(135deg, #2e7d32, #4caf50);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .banner-content h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .banner-content p {
+            font-size: 1.2em;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #dfeee4;
+            padding: 25px 40px;
+            font-size: 14px;
+            color: #355f4b;
+        }
+
+        .footer-cols {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 10px;
+        }
+
+        .footer h4 {
+            margin-bottom: 10px;
+            color: #1b5e20;
+        }
+
+        .footer p {
+            margin: 4px 0;
+        }
+
+        .footer p:last-child {
+            text-align: center;
+        }
+    </style>
+    <script src="../js/blog.js"></script>
+</head>
+
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="main-header">
+        <div class="container header-top">
+            <div class="logo">
+                <i class="fas fa-leaf logo-icon" aria-hidden="true"></i>
+            </div>
+
+            <nav class="main-nav">
+                <a href="../index.html">Home</a>
+                <a href="Products.html">Products</a>
+                <a href="Blog.html" class="active">Blog</a>
+                <a href="About.html">About</a>
+                <a href="research.html">Research</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="search-inline">
+                    <input type="text" placeholder="Search products..." aria-label="Search products">
+                </div>
+                <button class="cart-button" type="button">
+                    <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                    <span>Cart</span>
+                    <span class="cart-count" aria-label="Items in cart">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+
+
+    <h1 class="page-title">Our Blog</h1>
+
+    <!-- BLOG CARDS -->
+    <section class="blog-grid">
+
+        <div class="blog-card">
+            <img src="../Assets/Images/blog/blog1.jpg" alt="">
+            <h3>Technology & Sustainable Development</h3>
+            <button onclick="openArticle(1)">Read More</button>
+        </div>
+
+        <div class="blog-card">
+            <img src="../Assets/Images/blog/blog2.jpg" alt="">
+            <h3>Green Practices in Modern Technology</h3>
+            <button onclick="openArticle(2)">Read More</button>
+        </div>
+        <div class="blog-card">
+            <img src="../Assets/Images/blog/blog3.jpg" alt="">
+            <h3>Sustainable Agriculture and Smart Farming</h3>
+            <button onclick="openArticle(3)">Read More</button>
+        </div>
+
+        <div class="blog-card">
+            <img src="../Assets/Images/blog/blog4.jpg" alt="">
+            <h3>Eco-Friendly Packaging and Waste Reduction</h3>
+            <button onclick="openArticle(4)">Read More</button>
+        </div>
+
+
+    </section><br><br><br>
+
+
+
+
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="main-footer">
+
+        <!-- Footer Links -->
+        <div class="footer-content">
+            <div class="container footer-grid">
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <a href="Products.html">All Products</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">New Arrivals</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">Best Sellers</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">Sale</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Information</h4>
+                    <a href="About.html">About Us</a>
+                    <a href="About.html#contactSection">Contact</a>
+                    <a href="../index.html#faq">FAQ</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">Shipping</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Customer Service</h4>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">My Account</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">Order Tracking</a>
+                    <a href="javascript:void(0)" onclick="alert('Feature coming soon!')">Returns</a>
+                    <a href="About.html#contactSection">Support</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <p>📧 info@ecomart.com</p>
+                    <p>📱 +1 (555) 123-4567</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.x.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 EcoMart. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>
