@@ -237,7 +237,7 @@ const articles = {
 
 function openArticle(id) {
   localStorage.setItem("articleId", id);
-  window.location.href = "article.html";
+  window.location.href = "/html/article.html";
 }
 
 window.onload = function () {
